@@ -4,7 +4,7 @@ import {
   getGoals,
   setGoals,
   updateGoals,
-} from "./Controllers/goalController.js";
+} from "../Controllers/goalController.js";
 const router = Router();
 
 router.route("/").get(getGoals).post(setGoals);
