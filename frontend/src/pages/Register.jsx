@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import api from "../utils/api.js";
 import { Link, useNavigate } from "react-router-dom";
+import { BounceLoader } from "react-spinners";
+import { toast } from "react-toastify";
 const Register = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -29,15 +31,16 @@ const Register = () => {
 
       localStorage.setItem("user", data);
       localStorage.setItem("token", token);
-      return navigate("/");
+      return navigate("/dashboard");
     } catch (error) {
       console.log("Error Fetching", error);
     } finally {
       setLoading(false);
+      toast.success("New user Registered successfully");
     }
   };
   return loading ? (
-    "Loading......"
+    <BounceLoader color="#fbfbfbff" />
   ) : (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
       <div className="bg-gray-800 rounded-lg shadow-2xl p-8 w-full max-w-md border border-gray-700">

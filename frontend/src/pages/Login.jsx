@@ -1,6 +1,8 @@
 import api from "../utils/api.js";
-import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { BounceLoader } from "react-spinners";
+import { toast } from "react-toastify";
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -30,16 +32,18 @@ const Login = () => {
 
       localStorage.setItem("user", data);
       localStorage.setItem("token", token);
-      navigate("/");
+      toast.success("User logged in successfully");
+      navigate("/dashboard");
     } catch (err) {
-      console.log("login error", err);
+      toast.error(err.response.data.message);
+      return;
     } finally {
       setLoading(false);
     }
   };
 
   return loading ? (
-    `loading....`
+    <BounceLoader color="#ffffffff" />
   ) : (
     <>
       <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
